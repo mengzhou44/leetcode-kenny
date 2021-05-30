@@ -13,31 +13,26 @@
 var partition = function (head, x) {
 
     let l1 = new ListNode(-1)
-    let cur0 = l1
     let l2 = new ListNode(-1)
+    let cur1 = l1
+    let cur2 = l2
 
-    l2.next = head
-
-    let cur = l2.next
-    let prev = l2
+    let cur = head
     while (cur !== null) {
+        let next = cur.next
+        cur.next = null
         if (cur.val >= x) {
-            prev = cur
-            cur = cur.next
+            cur1.next = cur
+            cur1 = cur
         } else {
-            let next = cur.next
-            prev.next = next
-
-            cur0.next = cur
-            cur.next = null
-            cur0 = cur
-
-            cur = next
+            cur2.next = cur
+            cur2 = cur
         }
+        cur = next
     }
 
-    cur0.next = l2.next
+    cur2.next = l1.next
 
-    return l1.next
+    return l2.next
 
 };
